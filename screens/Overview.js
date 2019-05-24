@@ -80,18 +80,6 @@ class Overview extends Component {
     const { navigate } = this.props.navigation;
     const { active } = this.state;
 
-    const menIcon = (
-      <Icon type='ionicon' name='ios-man' style={{ height: 100, width: 100 }}/>
-    );
-    
-    const womanIcon = (
-      <Icon type='ionicon' name='ios-woman' style={{ height: 100, width: 100 }}/>
-    );
-
-    const autreIcon = (
-      <Icon type='ionicon' name='ios-person' style={{ height: 100, width: 100 }}/>
-    );
-
     const checkIcon = (
       <Image
         source={require('../assets/images/icons/check.png')}
