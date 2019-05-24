@@ -355,7 +355,7 @@ const styles = StyleSheet.create({
   active: {
     borderColor: theme.colors.orange,
     shadowOffset: { width: 0, height: 0 },
-    shadowColor: theme.colors.lightblue,
+    shadowColor: theme.colors.lightorange,
     shadowRadius: 3,
     shadowOpacity: 1,
   },
@@ -365,7 +365,7 @@ const styles = StyleSheet.create({
     width: 48,
     borderRadius: 48,
     marginBottom: 15,
-    backgroundColor: theme.colors.lightblue
+    backgroundColor: theme.colors.lightorange
   },
   check: {
     position: 'absolute',

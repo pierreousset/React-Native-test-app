@@ -1,5 +1,6 @@
 const colors = {
   orange: '#f57c00',
+  lightorange: 'rgba(245,124,0,0.2)',
   lightblue: 'rgba(46,92,255,0.2)',
   green: '#33AC2E',
   red: '#D63649',

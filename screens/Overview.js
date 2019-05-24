@@ -285,7 +285,7 @@ class Overview extends Component {
                         ) : null
                       }
                       <Block center middle style={styles.icon}>
-                        {menIcon}
+                        <Text style={{ fontSize:40 }}>👨</Text>
                       </Block>
                       <Text h4 style={{ marginTop: 10 }}>Homme</Text>
                     </Block>
@@ -311,7 +311,7 @@ class Overview extends Component {
                         ) : null
                       }
                       <Block center middle style={styles.icon}>
-                        {womanIcon}
+                      <Text style={{ fontSize:40 }}>👩</Text>
                       </Block>
                       <Text h4 style={{ marginTop: 10  }}>Femme</Text>
                     </Block>
@@ -339,7 +339,7 @@ class Overview extends Component {
                         ) : null
                       }
                       <Block center middle style={styles.icon}>
-                        {autreIcon}
+                        <Text style={{ fontSize:40 }}>👤</Text>
                       </Block>
                       <Text h4 style={{ marginTop: 10 }}>Autre</Text>
                     </Block>
@@ -391,7 +391,7 @@ const styles = StyleSheet.create({
   active: {
     borderColor: theme.colors.orange,
     shadowOffset: { width: 0, height: 0 },
-    shadowColor: theme.colors.lightblue,
+    shadowColor: theme.colors.lightorange,
     shadowRadius: 3,
     shadowOpacity: 1,
   },
@@ -400,7 +400,7 @@ const styles = StyleSheet.create({
     height: 60,
     width: 60,
     borderRadius: 48,
-    backgroundColor: theme.colors.lightblue
+    backgroundColor: theme.colors.lightorange
   },
   check: {
     position: 'absolute',
