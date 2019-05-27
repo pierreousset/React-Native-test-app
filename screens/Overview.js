@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { TouchableOpacity, Image, SafeAreaView, ScrollView, StyleSheet, AsyncStorage, TouchableWithoutFeedback } from 'react-native';
+import { TouchableOpacity, Image, SafeAreaView, ScrollView, StyleSheet, AsyncStorage, TouchableWithoutFeedback, Dimensions } from 'react-native';
 
 import { Block, Card, Text, Label } from '../components';
 
@@ -8,6 +8,7 @@ import { Button, Overlay, Icon } from 'react-native-elements';
 import * as theme from '../constants/theme';
 import {db} from './../firebase'
 
+const { width, height } = Dimensions.get('screen')
 
 class Overview extends Component {
   constructor(props) {
@@ -16,7 +17,10 @@ class Overview extends Component {
       name: null,
       first: false,
       profil: null,
-      active: null
+      active: null,
+      errorCode: '',
+      genre: '',
+      token: null
     }
   }
 
@@ -47,7 +51,7 @@ class Overview extends Component {
     const token = await AsyncStorage.getItem('userToken');
     const firstDo = await AsyncStorage.getItem('first');
     //await AsyncStorage.setItem('first', 'false')
-    console.log(firstDo);
+
     let firstresult = false
 
     if (firstDo == 'true') {
@@ -56,11 +60,39 @@ class Overview extends Component {
 
     db.ref('userLogin/' + token).once('value', (value) => {
       let val = value.val()
-      this.setState({name: val.name, profil: val.profil})
-      console.log(val.name, val.profil);
+      this.setState({name: val.name, profil: val.profil, token: token})
+      try {
+        this.setState({genre: val.genre})
+      } catch (error) {
+        this.setState({genre: ''})
+      }
     });
     
     this.setState({first: firstresult})
+  }
+
+  addGenre = async () => {
+    if (this.state.active) {
+      this.setState({ isLoading: true })
+      let genre = this.state.active
+      try {
+        db.ref('userLogin/' + this.state.token).set({genre: genre})
+        this.setState({ genre: genre })
+      } catch (error) {
+        console.log(error);
+      }
+    } else{
+      this.setState({ errorCode : 'auth/activeNotGenre'})
+    }
+  }
+
+  _errorPassword(){
+    if (this.state.errorCode === 'auth/activeNotGenre') {
+      return (
+       <Text style={styles.containerError}>Vous n'avez pas mis votre genre</Text>
+      )
+      
+    }
   }
 
 
@@ -333,15 +365,14 @@ class Overview extends Component {
                     </Block>
                   </TouchableWithoutFeedback>
                   </Block>
-                  <Block center style={{ marginTop: 25 }}>
+                  <Block center flex style={{ marginTop: 25 }}>
                     <Button
-                      full
-                      style={{ marginBottom: 12 }}
-                      onPress={() => this.createLogin()}
-                    >
-                    <Text button>Créer un compte</Text>
-                  </Button>
-                </Block>
+                      buttonStyle={{ backgroundColor: theme.colors.orange, width: width - 50}}
+                      title="Continuer"
+                      onPress={() => this.addGenre()}
+                    />
+                  </Block>
+                  {this._errorPassword()}
               </Block> 
             </Overlay>
           )
@@ -395,6 +426,12 @@ const styles = StyleSheet.create({
     right: -9,
     top: -9,
   },
+  containerError: {
+    color: theme.colors.red,
+    textAlign: 'center',
+    marginTop:0,
+    padding:0
+  }
 });
 
 export default Overview;

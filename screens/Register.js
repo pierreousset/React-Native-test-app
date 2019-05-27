@@ -7,6 +7,8 @@ import {
   AsyncStorage
 } from 'react-native';
 
+import { uuidv5 } from 'uuid/v5'
+
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import { Icon } from 'react-native-elements'
 
